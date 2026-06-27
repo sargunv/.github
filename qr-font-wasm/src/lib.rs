@@ -6,7 +6,6 @@
 
 use harfbuzz_wasm::{Glyph, GlyphBuffer};
 use qrcode::{Color, QrCode};
-use wasm_bindgen::prelude::*;
 
 const GLYPH_SPACE: u32 = 1;
 const GLYPH_MODULE: u32 = 2;
@@ -14,15 +13,15 @@ const GLYPH_MODULE: u32 = 2;
 /// Module size in font units. The base font is built at 1000 UPEM.
 const MODULE_SIZE: i32 = 40;
 
-#[wasm_bindgen]
-pub fn shape(
+#[no_mangle]
+pub extern "C" fn shape(
     _shape_plan: u32,
     _font_ref: u32,
     buf_ref: u32,
     _features: u32,
     _num_features: u32,
 ) -> i32 {
-    let buffer = GlyphBuffer::from_ref(buf_ref);
+    let mut buffer = GlyphBuffer::from_ref(buf_ref);
 
     let text: String = buffer
         .glyphs
@@ -62,7 +61,6 @@ pub fn shape(
         }
     }
 
-    // Carriage return: one space glyph whose advance equals the QR bounding box.
     glyphs.push(Glyph {
         codepoint: GLYPH_SPACE,
         flags: 0,
@@ -73,7 +71,6 @@ pub fn shape(
         y_offset: 0,
     });
 
-    let mut out = GlyphBuffer::from_ref(buf_ref);
-    out.glyphs = glyphs;
+    buffer.glyphs = glyphs;
     1
 }

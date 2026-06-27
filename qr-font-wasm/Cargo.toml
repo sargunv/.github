@@ -9,4 +9,3 @@ crate-type = ["cdylib"]
 [dependencies]
 harfbuzz-wasm = { path = "harfbuzz-wasm" }
 qrcode = "0.14"
-wasm-bindgen = "0.2"

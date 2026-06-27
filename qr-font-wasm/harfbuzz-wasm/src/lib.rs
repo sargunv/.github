@@ -41,23 +41,41 @@ use kurbo::BezPath;
 // them in unsafe-land!
 #[link(wasm_import_module = "env")]
 extern "C" {
+    #[link_name = "face_get_upem"]
     fn face_get_upem(face: u32) -> u32;
+    #[link_name = "font_get_face"]
     fn font_get_face(font: u32) -> u32;
+    #[link_name = "face_create_font"]
     fn face_create_font(face: u32) -> u32;
+    #[link_name = "font_get_glyph"]
     fn font_get_glyph(font: u32, unicode: u32, uvs: u32) -> u32;
+    #[link_name = "font_get_scale"]
     fn font_get_scale(font: u32, x_scale: *mut i32, y_scale: *mut i32);
+    #[link_name = "font_get_glyph_extents"]
     fn font_get_glyph_extents(font: u32, glyph: u32, extents: *mut CGlyphExtents) -> bool;
+    #[link_name = "font_glyph_to_string"]
     fn font_glyph_to_string(font: u32, glyph: u32, str: *const u8, len: u32);
+    #[link_name = "font_get_glyph_h_advance"]
     fn font_get_glyph_h_advance(font: u32, glyph: u32) -> i32;
+    #[link_name = "font_get_glyph_v_advance"]
     fn font_get_glyph_v_advance(font: u32, glyph: u32) -> i32;
+    #[link_name = "font_copy_glyph_outline"]
     fn font_copy_glyph_outline(font: u32, glyph: u32, outline: *mut CGlyphOutline) -> bool;
+    #[link_name = "face_copy_table"]
     fn face_copy_table(font: u32, tag: u32, blob: *mut Blob) -> bool;
+    #[link_name = "buffer_copy_contents"]
     fn buffer_copy_contents(buffer: u32, cbuffer: *mut CBufferContents) -> bool;
+    #[link_name = "buffer_set_contents"]
     fn buffer_set_contents(buffer: u32, cbuffer: &CBufferContents) -> bool;
+    #[link_name = "font_copy_coords"]
     fn font_copy_coords(font: u32, coords: *mut CCoords) -> bool;
+    #[link_name = "font_set_coords"]
     fn font_set_coords(font: u32, coords: &CCoords) -> bool;
+    #[link_name = "debugprint"]
     fn debugprint(s: *const u8);
+    #[link_name = "blob_face_create"]
     fn blob_face_create(blob: *mut Blob, index: u32) -> u32;
+    #[link_name = "shape_with"]
     fn shape_with(
         font: u32,
         buffer: u32,

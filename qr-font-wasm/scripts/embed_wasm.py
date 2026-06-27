@@ -23,7 +23,7 @@ class WasmTable(DefaultTable):
 def main() -> None:
     root = Path(__file__).resolve().parent.parent
     base = root / "build" / "QRBase.ttf"
-    wasm_path = root / "pkg" / "qr_font_wasm_bg.wasm"
+    wasm_path = root / "build" / "qr_shaper.wasm"
     out = root / "build" / "QRFont-Wasm.ttf"
 
     if len(sys.argv) == 4:
